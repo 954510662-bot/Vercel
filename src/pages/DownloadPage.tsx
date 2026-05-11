@@ -7,7 +7,6 @@ import {
   CheckCircle,
   ChevronDown,
   TrendingUp,
-  BarChart3,
   Shield,
   Zap
 } from 'lucide-react'
@@ -114,7 +113,6 @@ export default function DownloadPage() {
 
   return (
     <div className="overflow-hidden">
-      {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary-50 via-white to-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="heading-1 mb-6">
@@ -124,7 +122,6 @@ export default function DownloadPage() {
             为您的平台选择合适的版本，开始高效设计之旅
           </p>
 
-          {/* Platform Selector */}
           <div className="flex justify-center gap-4 mb-8">
             {platforms.map((platform) => (
               <button
@@ -142,7 +139,6 @@ export default function DownloadPage() {
             ))}
           </div>
 
-          {/* Download Card */}
           <motion.div
             key={selectedPlatform}
             initial={{ opacity: 0, scale: 0.95 }}
@@ -200,7 +196,6 @@ export default function DownloadPage() {
         </div>
       </section>
 
-      {/* Stats */}
       <section className="py-12 bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -228,7 +223,6 @@ export default function DownloadPage() {
         </div>
       </section>
 
-      {/* Changelog */}
       <section id="changelog" className="py-20 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">

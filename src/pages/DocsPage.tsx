@@ -10,7 +10,8 @@ import {
   Copy,
   Check,
   Layers,
-  Keyboard
+  Keyboard,
+  Zap
 } from 'lucide-react'
 
 const docs = [
@@ -106,8 +107,6 @@ const shortcuts = [
 
 export default function DocsPage() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('quickstart')
   const [copiedCode, setCopiedCode] = useState('')
 
   const copyCode = (code: string, id: string) => {
@@ -118,7 +117,6 @@ export default function DocsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
       <header className="bg-white border-b sticky top-0 z-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -151,8 +149,7 @@ export default function DocsPage() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex gap-8">
-          {/* Sidebar */}
-          <aside className={`w-64 flex-shrink-0 ${mobileMenuOpen ? 'block' : 'hidden'} lg:block`}>
+          <aside className="w-64 flex-shrink-0">
             <nav className="sticky top-24 space-y-6">
               {docs.map((section) => (
                 <div key={section.category}>
@@ -178,9 +175,7 @@ export default function DocsPage() {
             </nav>
           </aside>
 
-          {/* Main Content */}
           <main className="flex-1 max-w-4xl">
-            {/* Quick Start */}
             <section id="quickstart" className="mb-12">
               <h1 className="text-4xl font-bold mb-6">快速入门</h1>
               <p className="text-lg text-gray-600 mb-8">
@@ -200,7 +195,6 @@ export default function DocsPage() {
                 </div>
               </div>
 
-              {/* Shortcuts */}
               <div className="bg-white rounded-2xl border p-6">
                 <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
                   <Keyboard className="w-6 h-6 text-primary-600" />
@@ -223,14 +217,12 @@ export default function DocsPage() {
               </div>
             </section>
 
-            {/* API Documentation */}
             <section id="api" className="mb-12">
               <h2 className="text-3xl font-bold mb-6">API 文档</h2>
               <p className="text-lg text-gray-600 mb-8">
                 CodeBrush 提供完整的 RESTful API，支持项目管理、文件操作、用户认证等功能。
               </p>
 
-              {/* API Endpoints */}
               <div className="space-y-4">
                 {apiEndpoints.map((endpoint, index) => (
                   <motion.div
@@ -263,7 +255,6 @@ export default function DocsPage() {
                 ))}
               </div>
 
-              {/* Code Example */}
               <div className="mt-8 bg-gray-900 rounded-xl p-6 text-white">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-medium">请求示例</span>

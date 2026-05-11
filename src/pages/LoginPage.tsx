@@ -6,7 +6,6 @@ import {
   EyeOff, 
   Mail,
   Lock,
-  User,
   ArrowRight,
   CheckCircle,
   Github,
@@ -47,7 +46,6 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
@@ -58,9 +56,7 @@ export default function LoginPage() {
           <p className="text-gray-600">登录您的 CodeBrush 账户</p>
         </div>
 
-        {/* Form Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          {/* Social Login */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <button className="flex items-center justify-center gap-2 px-4 py-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
               <Github className="w-5 h-5" />
@@ -81,14 +77,12 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
               {error}
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -165,7 +159,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Security Notice */}
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
             <div className="flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
@@ -179,7 +172,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* Sign Up Link */}
         <p className="text-center mt-6 text-gray-600">
           还没有账户？{' '}
           <Link to="/register" className="text-primary-600 font-medium hover:text-primary-700">
