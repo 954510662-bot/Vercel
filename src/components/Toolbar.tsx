@@ -1,5 +1,5 @@
+import { useState } from 'react'
 import { useStore } from '../store'
-import { exportProject } from '../store'
 import { 
   MousePointer2, 
   Square, 
@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { ToolType } from '../types'
 import ImageUploader from './ImageUploader'
+import { downloadAsPNG, downloadAsSVG, downloadAsJSON } from '../utils/export'
 
 const tools: { type: ToolType; icon: typeof MousePointer2; label: string }[] = [
   { type: 'select', icon: MousePointer2, label: '选择工具' },
@@ -34,24 +35,39 @@ const tools: { type: ToolType; icon: typeof MousePointer2; label: string }[] = [
 
 function Toolbar() {
   const { currentTool, selectTool, undo, redo, createProject, projects, currentProjectId } = useStore()
+  const [showExportMenu, setShowExportMenu] = useState(false)
 
   const handleToolClick = (tool: ToolType) => {
     selectTool(tool)
   }
 
-  const handleExport = () => {
-    if (!currentProjectId) return
-    
-    const svgContent = exportProject(projects, currentProjectId, 'svg')
-    if (svgContent) {
-      const blob = new Blob([svgContent], { type: 'image/svg+xml' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = 'export.svg'
-      a.click()
-      URL.revokeObjectURL(url)
+  const getCurrentProject = () => {
+    if (!currentProjectId) return null
+    return projects.find(p => p.id === currentProjectId)
+  }
+
+  const handleExportPNG = async () => {
+    const project = getCurrentProject()
+    if (project) {
+      await downloadAsPNG(project)
     }
+    setShowExportMenu(false)
+  }
+
+  const handleExportSVG = () => {
+    const project = getCurrentProject()
+    if (project) {
+      downloadAsSVG(project)
+    }
+    setShowExportMenu(false)
+  }
+
+  const handleExportJSON = () => {
+    const project = getCurrentProject()
+    if (project) {
+      downloadAsJSON(project)
+    }
+    setShowExportMenu(false)
   }
 
   return (
@@ -97,13 +113,37 @@ function Toolbar() {
         >
           <Redo2 size={20} />
         </button>
-        <button
-          onClick={handleExport}
-          className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center"
-          title="导出SVG"
-        >
-          <Download size={20} />
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => setShowExportMenu(!showExportMenu)}
+            className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center"
+            title="导出"
+          >
+            <Download size={20} />
+          </button>
+          {showExportMenu && (
+            <div className="absolute right-0 top-full mt-1 bg-gray-800 rounded-lg shadow-lg py-1 min-w-[120px] z-50">
+              <button
+                onClick={handleExportPNG}
+                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                导出 PNG
+              </button>
+              <button
+                onClick={handleExportSVG}
+                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                导出 SVG
+              </button>
+              <button
+                onClick={handleExportJSON}
+                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                导出 JSON
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
