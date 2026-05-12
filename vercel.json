@@ -1,15 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist",
-        "buildCommand": "pnpm install && pnpm run build"
-      }
-    }
-  ],
+  "buildCommand": "pnpm install && pnpm run build",
+  "outputDirectory": "dist",
+  "installCommand": "pnpm install",
+  "framework": "vite",
+  "env": {
+    "NODE_VERSION": "20",
+    "CI": "true"
+  },
   "routes": [
     {
       "src": "/assets/(.*)",
@@ -20,11 +18,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "NODE_VERSION": "20",
-    "CI": "true"
-  },
-  "installCommand": "pnpm install",
-  "framework": "vite"
+  ]
 }
