@@ -1,37 +1,37 @@
-# CodeBrush 部署配置指南
+# CodeBrush Deployment Configuration Guide
 
-本文档提供 CodeBrush 项目的部署和持续集成配置指南。
+This document provides deployment and CI/CD configuration guidance for the CodeBrush project.
 
 ---
 
-## 📋 目录
+## 📋 Table of Contents
 
 1. [GitHub Actions CI/CD](#github-actions-cicd)
-2. [Cloudflare Pages 部署](#cloudflare-pages-部署)
-3. [Codecov 集成](#codecov-集成)
-4. [环境变量配置](#环境变量配置)
+2. [Cloudflare Pages Deployment](#cloudflare-pages-deployment)
+3. [Codecov Integration](#codecov-integration)
+4. [Environment Variables Configuration](#environment-variables-configuration)
 
 ---
 
 ## GitHub Actions CI/CD
 
-### 工作流概览
+### Workflow Overview
 
-项目使用 GitHub Actions 进行持续集成和部署，包含以下阶段：
+The project uses GitHub Actions for continuous integration and deployment with the following stages:
 
 ```
-quality-check (类型检查 + ESLint)
+quality-check (Type Check + ESLint)
         ↓
-test (单元测试 + 覆盖率)
+test (Unit Tests + Coverage)
         ↓
-build (构建生产版本)
+build (Production Build)
         ↓
-security-scan (安全漏洞扫描)
+security-scan (Security Vulnerability Scan)
         ↓
-deploy (Cloudflare Pages 生产环境)
+deploy (Cloudflare Pages Production)
 ```
 
-### 工作流文件位置
+### Workflow File Location
 
 ```
 .github/workflows/main.yml
@@ -39,131 +39,131 @@ deploy (Cloudflare Pages 生产环境)
 
 ---
 
-## Cloudflare Pages 部署
+## Cloudflare Pages Deployment
 
-### 前置要求
+### Prerequisites
 
-1. 拥有 Cloudflare 账户
-2. 已安装 Wrangler CLI（可选）
+1. Cloudflare account
+2. Wrangler CLI installed (optional)
 
-### 获取 Cloudflare API Token
+### Obtaining Cloudflare API Token
 
-1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)
-2. 前往 **API Tokens** 页面
-3. 点击 **Create Token**
-4. 选择 **Edit Cloudflare Workers** 模板
-5. 配置账户权限：
+1. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. Go to **API Tokens** page
+3. Click **Create Token**
+4. Select **Edit Cloudflare Workers** template
+5. Configure account permissions:
    - Account: `Edit`
-   - Zone: `Edit`（如需自定义域名）
-6. 设置令牌名称为 `Cloudflare Pages Deploy`
-7. 点击 **Create Token**
-8. **重要**：立即复制令牌，它只会显示一次
+   - Zone: `Edit` (if using custom domain)
+6. Set token name to `Cloudflare Pages Deploy`
+7. Click **Create Token**
+8. **Important**: Copy the token immediately - it will only be shown once
 
-### 获取 Account ID
+### Obtaining Account ID
 
-1. 登录 Cloudflare Dashboard
-2. 选择目标账户
-3. 在**概述**页面底部找到 **Account ID**
-4. 复制并保存
+1. Log in to Cloudflare Dashboard
+2. Select the target account
+3. Find **Account ID** at the bottom of the **Overview** page
+4. Copy and save it
 
-### 在 GitHub Secrets 中配置
+### Configuring GitHub Secrets
 
-1. 打开 GitHub 仓库
-2. 进入 **Settings** → **Secrets and variables** → **Actions**
-3. 点击 **New repository secret** 添加以下 secrets：
+1. Open the GitHub repository
+2. Go to **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret** and add the following secrets:
 
-| Secret 名称 | 说明 |
-|------------|------|
+| Secret Name | Description |
+|-------------|-------------|
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Account ID |
 
-### 手动部署（可选）
+### Manual Deployment (Optional)
 
-使用 Wrangler CLI 手动部署：
+Deploy manually using Wrangler CLI:
 
 ```bash
-# 安装 Wrangler
+# Install Wrangler
 npm install -g wrangler
 
-# 登录 Cloudflare
+# Login to Cloudflare
 wrangler login
 
-# 部署到 Cloudflare Pages
+# Deploy to Cloudflare Pages
 wrangler pages deploy dist --project-name=codebrush
 ```
 
-### 自定义域名（可选）
+### Custom Domain (Optional)
 
-1. 在 Cloudflare Dashboard 中添加域名
-2. 配置 DNS 记录指向 Cloudflare Pages
-3. 在 Pages 项目设置中绑定自定义域名
-
----
-
-## Codecov 集成
-
-### Codecov 简介
-
-Codecov 是一个代码覆盖率分析平台，可以帮助追踪测试覆盖率和代码变更影响。
-
-### 获取 Codecov Token
-
-1. 访问 [codecov.io](https://codecov.io/)
-2. 使用 GitHub 登录
-3. 添加 `954510662-bot/CodeBrush` 仓库
-4. 复制仓库的 **Codecov Token**
-
-### 在 GitHub Secrets 中配置
-
-1. 打开 GitHub 仓库
-2. 进入 **Settings** → **Secrets and variables** → **Actions**
-3. 点击 **New repository secret**
-4. 添加：
-
-| Secret 名称 | 说明 |
-|------------|------|
-| `CODECOV_TOKEN` | Codecov 仓库 Token |
-
-### Codecov 工作原理
-
-工作流中的测试步骤会自动：
-
-1. 运行 `pnpm test:coverage` 生成覆盖率报告
-2. 将 `coverage/coverage-final.json` 上传到 Codecov
-3. Codecov 分析并生成覆盖率趋势图
-
-### 查看覆盖率报告
-
-1. 访问 [codecov.io](https://codecov.io/)
-2. 选择 CodeBrush 仓库
-3. 查看覆盖率趋势和变更影响
+1. Add domain in Cloudflare Dashboard
+2. Configure DNS records pointing to Cloudflare Pages
+3. Bind custom domain in Pages project settings
 
 ---
 
-## 环境变量配置
+## Codecov Integration
 
-### 必需 Secrets
+### About Codecov
 
-| Secret 名称 | 必需 | 说明 |
-|------------|------|------|
-| `CLOUDFLARE_API_TOKEN` | 是 | 用于部署到 Cloudflare Pages |
-| `CLOUDFLARE_ACCOUNT_ID` | 是 | Cloudflare 账户标识 |
-| `CODECOV_TOKEN` | 否 | 代码覆盖率上传（CI/CD 仍会运行，仅跳过上传） |
+Codecov is a code coverage analysis platform that helps track test coverage and code change impact.
 
-### 验证 Secrets 配置
+### Obtaining Codecov Token
 
-Secrets 配置完成后，GitHub Actions 工作流应该能够：
+1. Visit [codecov.io](https://codecov.io/)
+2. Log in with GitHub
+3. Add the `954510662-bot/CodeBrush` repository
+4. Copy the repository's **Codecov Token**
 
-1. ✅ 运行测试并生成覆盖率报告
-2. ✅ 上传覆盖率报告到 Codecov
-3. ✅ 部署到 Cloudflare Pages
+### Configuring GitHub Secrets
 
-### 本地测试
+1. Open the GitHub repository
+2. Go to **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret**
+4. Add:
 
-在本地验证 CI/CD 流程：
+| Secret Name | Description |
+|-------------|-------------|
+| `CODECOV_TOKEN` | Codecov Repository Token |
+
+### How Codecov Works
+
+The test step in the workflow automatically:
+
+1. Runs `pnpm test:coverage` to generate coverage report
+2. Uploads `coverage/coverage-final.json` to Codecov
+3. Codecov analyzes and generates coverage trend charts
+
+### Viewing Coverage Reports
+
+1. Visit [codecov.io](https://codecov.io/)
+2. Select the CodeBrush repository
+3. View coverage trends and change impact
+
+---
+
+## Environment Variables Configuration
+
+### Required Secrets
+
+| Secret Name | Required | Description |
+|-------------|----------|-------------|
+| `CLOUDFLARE_API_TOKEN` | Yes | For deploying to Cloudflare Pages |
+| `CLOUDFLARE_ACCOUNT_ID` | Yes | Cloudflare account identifier |
+| `CODECOV_TOKEN` | No | Code coverage upload (CI/CD still runs, only skips upload) |
+
+### Verifying Secrets Configuration
+
+After secrets are configured, the GitHub Actions workflow should be able to:
+
+1. ✅ Run tests and generate coverage reports
+2. ✅ Upload coverage reports to Codecov
+3. ✅ Deploy to Cloudflare Pages
+
+### Local Testing
+
+Verify CI/CD flow locally:
 
 ```bash
-# 运行所有检查
+# Run all checks
 pnpm run lint
 pnpm test:run
 pnpm test:coverage
@@ -172,33 +172,33 @@ pnpm run build
 
 ---
 
-## 故障排除
+## Troubleshooting
 
-### 常见问题
+### Common Issues
 
-**Q: Cloudflare 部署失败？**
-- 检查 `CLOUDFLARE_API_TOKEN` 和 `CLOUDFLARE_ACCOUNT_ID` 是否正确
-- 确保 Token 具有 Pages 部署权限
-- 检查 Cloudflare 账户状态
+**Q: Cloudflare deployment failed?**
+- Check if `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` are correct
+- Ensure token has Pages deployment permissions
+- Check Cloudflare account status
 
-**Q: Codecov 上传失败？**
-- `CODECOV_TOKEN` 可能无效或过期
-- 可以暂时移除该步骤，测试仍会运行
-- 覆盖率报告会保存在本地 `coverage/` 目录
+**Q: Codecov upload failed?**
+- `CODECOV_TOKEN` may be invalid or expired
+- Can temporarily remove the step, tests still run
+- Coverage reports are saved locally in `coverage/` directory
 
-**Q: 测试通过但覆盖率显示为 0？**
-- 检查测试是否正确运行
-- 确认 vitest.config.ts 中的 coverage 配置正确
-
----
-
-## 参考链接
-
-- [Cloudflare Pages 文档](https://developers.cloudflare.com/pages/)
-- [Codecov 文档](https://docs.codecov.io/)
-- [GitHub Actions 文档](https://docs.github.com/actions)
-- [Vitest 文档](https://vitest.dev/)
+**Q: Tests pass but coverage shows 0?**
+- Check if tests are running correctly
+- Confirm coverage configuration in vitest.config.ts is correct
 
 ---
 
-**最后更新**: 2026-05-12
+## Reference Links
+
+- [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
+- [Codecov Documentation](https://docs.codecov.io/)
+- [GitHub Actions Documentation](https://docs.github.com/actions)
+- [Vitest Documentation](https://vitest.dev/)
+
+---
+
+**Last Updated**: 2026-05-12

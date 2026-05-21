@@ -1,62 +1,62 @@
-# CodeBrush 组件文档
+# CodeBrush Component Documentation
 
-本文档提供 CodeBrush 设计工具核心组件的使用说明和 API 参考。
+This document provides usage instructions and API reference for the core components of the CodeBrush design tool.
 
 ---
 
-## 📋 目录
+## 📋 Table of Contents
 
-1. [组件概览](#组件概览)
-2. [核心组件](#核心组件)
+1. [Component Overview](#component-overview)
+2. [Core Components](#core-components)
    - [Editor](#editor)
    - [Toolbar](#toolbar)
    - [LayersPanel](#layerspanel)
-3. [UI 组件](#ui-组件)
+3. [UI Components](#ui-components)
    - [Button](#button)
    - [Input](#input)
-4. [自定义 Hooks](#自定义-hooks)
-5. [状态管理](#状态管理)
+4. [Custom Hooks](#custom-hooks)
+5. [State Management](#state-management)
 
 ---
 
-## 组件概览
+## Component Overview
 
-### 组件架构
+### Component Architecture
 
 ```
 App
-├── Toolbar                    # 工具栏
+├── Toolbar                    # Toolbar
 ├── MainLayout
-│   ├── LayersPanel           # 图层面板
+│   ├── LayersPanel           # Layers Panel
 │   └── MainContent
-│       ├── Editor            # 画布编辑器
-│       └── PropertiesPanel   # 属性面板
-└── ExportModal               # 导出模态框
+│       ├── Editor            # Canvas Editor
+│       └── PropertiesPanel   # Properties Panel
+└── ExportModal               # Export Modal
 ```
 
 ---
 
-## 核心组件
+## Core Components
 
 ### Editor
 
-画布编辑器是应用的核心，负责渲染设计画布和处理用户交互。
+The canvas editor is the core of the application, responsible for rendering the design canvas and handling user interactions.
 
-#### 文件位置
+#### File Location
 
 ```
 src/components/Editor.tsx
 ```
 
-#### 功能特性
+#### Features
 
-- Canvas 渲染引擎
-- 图层绘制（矩形、椭圆、文本、图片）
-- 鼠标事件处理
-- 拖拽创建图形
-- 视口缩放和平移
+- Canvas rendering engine
+- Layer drawing (rectangle, ellipse, text, image)
+- Mouse event handling
+- Drag-to-create shapes
+- Viewport zoom and pan
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import { Editor } from './components/Editor'
@@ -72,43 +72,43 @@ function App() {
 
 #### Props
 
-| 属性 | 类型 | 必需 | 说明 |
-|------|------|------|------|
-| `className` | `string` | 否 | 自定义样式类 |
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `className` | `string` | No | Custom CSS class |
 
-#### 内部状态
+#### Internal State
 
-- 当前项目图层列表
-- 视口位置和缩放
-- 当前选中的图层
-- 鼠标状态（按下、位置）
+- Current project layers list
+- Viewport position and zoom
+- Currently selected layers
+- Mouse state (pressed, position)
 
-#### 生命周期
+#### Lifecycle
 
-1. **挂载时**：初始化 Canvas 上下文，读取当前项目
-2. **图层变更时**：重新渲染 Canvas
-3. **卸载时**：清理事件监听器
+1. **On Mount**: Initialize Canvas context, read current project
+2. **On Layer Change**: Re-render Canvas
+3. **On Unmount**: Clean up event listeners
 
 ---
 
 ### Toolbar
 
-工具栏组件，提供绘图工具选择和常用操作。
+Toolbar component providing drawing tool selection and common operations.
 
-#### 文件位置
+#### File Location
 
 ```
 src/components/Toolbar.tsx
 ```
 
-#### 功能特性
+#### Features
 
-- 工具选择（选择、矩形、椭圆、多边形等）
-- 撤销/重做操作
-- 新建项目
-- 导出功能（PNG、SVG、JSON）
+- Tool selection (Select, Rectangle, Ellipse, Polygon, etc.)
+- Undo/Redo operations
+- New project creation
+- Export functionality (PNG, SVG, JSON)
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import Toolbar from './components/Toolbar'
@@ -123,55 +123,55 @@ function App() {
 }
 ```
 
-#### 工具列表
+#### Tool List
 
-| 工具 | 图标 | 快捷键 | 说明 |
-|------|------|--------|------|
-| 选择工具 | MousePointer2 | V | 选择和移动图层 |
-| 矩形工具 | Square | R | 绘制矩形 |
-| 椭圆工具 | Circle | O | 绘制椭圆 |
-| 多边形工具 | Triangle | Y | 绘制多边形 |
-| 线条工具 | Minus | L | 绘制直线 |
-| 钢笔工具 | PenTool | P | 贝塞尔曲线 |
-| 文本工具 | Type | T | 添加文本 |
-| 画板工具 | LayoutGrid | F | 创建画板 |
-| 手型工具 | Hand | H | 平移画布 |
-| 缩放工具 | ZoomIn | Z | 缩放视图 |
+| Tool | Icon | Shortcut | Description |
+|------|------|----------|-------------|
+| Select Tool | MousePointer2 | V | Select and move layers |
+| Rectangle Tool | Square | R | Draw rectangles |
+| Ellipse Tool | Circle | O | Draw ellipses |
+| Polygon Tool | Triangle | Y | Draw polygons |
+| Line Tool | Minus | L | Draw straight lines |
+| Pen Tool | PenTool | P | Bezier curves |
+| Text Tool | Type | T | Add text |
+| Frame Tool | LayoutGrid | F | Create frames |
+| Hand Tool | Hand | H | Pan canvas |
+| Zoom Tool | ZoomIn | Z | Zoom view |
 
-#### 快捷键
+#### Keyboard Shortcuts
 
-| 快捷键 | 操作 |
-|--------|------|
-| Ctrl+Z | 撤销 |
-| Ctrl+Y | 重做 |
-| Ctrl+S | 保存项目 |
-| Delete | 删除选中图层 |
-| Ctrl+G | 编组选中图层 |
-| Ctrl+Shift+G | 取消编组 |
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+Z | Undo |
+| Ctrl+Y | Redo |
+| Ctrl+S | Save project |
+| Delete | Delete selected layers |
+| Ctrl+G | Group selected layers |
+| Ctrl+Shift+G | Ungroup layers |
 
 ---
 
 ### LayersPanel
 
-图层面板，显示和管理项目中的所有图层。
+Layers panel displaying and managing all layers in the project.
 
-#### 文件位置
+#### File Location
 
 ```
 src/components/LayersPanel.tsx
 ```
 
-#### 功能特性
+#### Features
 
-- 图层列表显示
-- 图层选择
-- 图层可见性切换
-- 图层锁定
-- 图层重命名
-- 图层排序（拖拽）
-- 图层删除
+- Layer list display
+- Layer selection
+- Layer visibility toggle
+- Layer locking
+- Layer renaming
+- Layer sorting (drag)
+- Layer deletion
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import LayersPanel from './components/LayersPanel'
@@ -186,137 +186,137 @@ function App() {
 }
 ```
 
-#### 图层操作
+#### Layer Operations
 
-| 操作 | 方法 | 说明 |
-|------|------|------|
-| 选择图层 | `selectLayers(ids)` | 选中指定图层 |
-| 显示/隐藏 | `layer.visible` | 切换可见性 |
-| 锁定/解锁 | `layer.locked` | 切换锁定状态 |
-| 删除 | `deleteLayer(id)` | 删除图层 |
+| Operation | Method | Description |
+|-----------|--------|-------------|
+| Select Layer | `selectLayers(ids)` | Select specified layers |
+| Show/Hide | `layer.visible` | Toggle visibility |
+| Lock/Unlock | `layer.locked` | Toggle lock state |
+| Delete | `deleteLayer(id)` | Delete layer |
 
 ---
 
-## UI 组件
+## UI Components
 
 ### Button
 
-通用按钮组件。
+Universal button component.
 
-#### 文件位置
+#### File Location
 
 ```
 src/components/ui/Button.tsx
 ```
 
-#### 功能特性
+#### Features
 
-- 多种变体（primary、secondary、outline、ghost、danger）
-- 多种尺寸（sm、md、lg）
-- 支持禁用状态
-- 支持加载状态
+- Multiple variants (primary, secondary, outline, ghost, danger)
+- Multiple sizes (sm, md, lg)
+- Disabled state support
+- Loading state support
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import { Button } from './components/ui/Button'
 
-// 基本用法
-<Button>点击我</Button>
+// Basic usage
+<Button>Click Me</Button>
 
-// 主要按钮
-<Button variant="primary">主要操作</Button>
+// Primary button
+<Button variant="primary">Primary Action</Button>
 
-// 禁用按钮
-<Button disabled>不可点击</Button>
+// Disabled button
+<Button disabled>Disabled</Button>
 
-// 危险操作
-<Button variant="danger">删除</Button>
+// Danger action
+<Button variant="danger">Delete</Button>
 
-// 带图标
-<Button icon={<SaveIcon />}>保存</Button>
+// With icon
+<Button icon={<SaveIcon />}>Save</Button>
 ```
 
 #### Props
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'` | 按钮样式变体 |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | 按钮尺寸 |
-| `disabled` | `boolean` | `false` | 是否禁用 |
-| `loading` | `boolean` | `false` | 加载状态 |
-| `icon` | `ReactNode` | - | 按钮图标 |
-| `iconPosition` | `'left' \| 'right'` | `'left'` | 图标位置 |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'danger'` | `'primary'` | Button style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `disabled` | `boolean` | `false` | Whether disabled |
+| `loading` | `boolean` | `false` | Loading state |
+| `icon` | `ReactNode` | - | Button icon |
+| `iconPosition` | `'left' \| 'right'` | `'left'` | Icon position |
 
 ---
 
 ### Input
 
-输入框组件。
+Input component.
 
-#### 文件位置
+#### File Location
 
 ```
 src/components/ui/Input.tsx
 ```
 
-#### 功能特性
+#### Features
 
-- 文本输入
-- 标签显示
-- 错误提示
-- 禁用状态
-- 自定义样式
+- Text input
+- Label display
+- Error message
+- Disabled state
+- Custom styles
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import { Input } from './components/ui/Input'
 
-// 基本输入框
-<Input placeholder="请输入内容" />
+// Basic input
+<Input placeholder="Enter content" />
 
-// 带标签
-<Input label="用户名" placeholder="请输入用户名" />
+// With label
+<Input label="Username" placeholder="Enter username" />
 
-// 错误状态
+// Error state
 <Input 
-  label="邮箱" 
-  error="请输入有效的邮箱地址"
+  label="Email" 
+  error="Please enter a valid email address"
   placeholder="example@email.com" 
 />
 
-// 禁用状态
-<Input label="只读" disabled value="不可修改" />
+// Disabled state
+<Input label="Readonly" disabled value="Cannot modify" />
 ```
 
 #### Props
 
-| 属性 | 类型 | 默认值 | 说明 |
-|------|------|--------|------|
-| `label` | `string` | - | 输入框标签 |
-| `placeholder` | `string` | - | 占位文本 |
-| `error` | `string` | - | 错误信息 |
-| `disabled` | `boolean` | `false` | 是否禁用 |
-| `value` | `string` | - | 输入值（受控） |
-| `onChange` | `(e: ChangeEvent) => void` | - | 值变化回调 |
-| `className` | `string` | - | 自定义样式 |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Input label |
+| `placeholder` | `string` | - | Placeholder text |
+| `error` | `string` | - | Error message |
+| `disabled` | `boolean` | `false` | Whether disabled |
+| `value` | `string` | - | Input value (controlled) |
+| `onChange` | `(e: ChangeEvent) => void` | - | Value change callback |
+| `className` | `string` | - | Custom styles |
 
 ---
 
-## 自定义 Hooks
+## Custom Hooks
 
 ### useShortcuts
 
-键盘快捷键管理。
+Keyboard shortcut management.
 
-#### 文件位置
+#### File Location
 
 ```
 src/hooks/useShortcuts.ts
 ```
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import { useShortcuts } from './hooks/useShortcuts'
@@ -333,36 +333,36 @@ function MyComponent() {
     onUngroup: () => ungroupSelection()
   })
   
-  return <div>使用快捷键</div>
+  return <div>Use keyboard shortcuts</div>
 }
 ```
 
-#### 参数
+#### Parameters
 
-| 属性 | 类型 | 必需 | 说明 |
-|------|------|------|------|
-| `onUndo` | `() => void` | 否 | 撤销回调 |
-| `onRedo` | `() => void` | 否 | 重做回调 |
-| `onDelete` | `() => void` | 否 | 删除回调 |
-| `onCopy` | `() => void` | 否 | 复制回调 |
-| `onPaste` | `() => void` | 否 | 粘贴回调 |
-| `onSelectAll` | `() => void` | 否 | 全选回调 |
-| `onGroup` | `() => void` | 否 | 编组回调 |
-| `onUngroup` | `() => void` | 否 | 取消编组回调 |
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `onUndo` | `() => void` | No | Undo callback |
+| `onRedo` | `() => void` | No | Redo callback |
+| `onDelete` | `() => void` | No | Delete callback |
+| `onCopy` | `() => void` | No | Copy callback |
+| `onPaste` | `() => void` | No | Paste callback |
+| `onSelectAll` | `() => void` | No | Select all callback |
+| `onGroup` | `() => void` | No | Group callback |
+| `onUngroup` | `() => void` | No | Ungroup callback |
 
 ---
 
 ### useWebVitals
 
-Web Vitals 性能监控。
+Web Vitals performance monitoring.
 
-#### 文件位置
+#### File Location
 
 ```
 src/hooks/useWebVitals.ts
 ```
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import { useWebVitals } from './hooks/useWebVitals'
@@ -374,141 +374,141 @@ function App() {
 }
 ```
 
-#### 监控指标
+#### Monitored Metrics
 
-| 指标 | 说明 | 目标值 |
-|------|------|--------|
-| LCP | 最大内容绘制 | < 2.5s |
-| FID | 首次输入延迟 | < 100ms |
-| CLS | 累积布局偏移 | < 0.1 |
-| FCP | 首次内容绘制 | < 1.8s |
-| TTFB | 首字节时间 | < 800ms |
-| INP | 交互到下一帧 | < 200ms |
+| Metric | Name | Target |
+|--------|------|--------|
+| LCP | Largest Contentful Paint | < 2.5s |
+| FID | First Input Delay | < 100ms |
+| CLS | Cumulative Layout Shift | < 0.1 |
+| FCP | First Contentful Paint | < 1.8s |
+| TTFB | Time to First Byte | < 800ms |
+| INP | Interaction to Next Paint | < 200ms |
 
 ---
 
-## 状态管理
+## State Management
 
 ### useStore
 
-全局状态管理，使用 Zustand 实现。
+Global state management using Zustand.
 
-#### 文件位置
+#### File Location
 
 ```
 src/store/index.ts
 ```
 
-#### 使用示例
+#### Usage Example
 
 ```tsx
 import { useStore } from './store'
 
 function MyComponent() {
   const { 
-    projects,           // 项目列表
-    currentTool,        // 当前工具
-    selectTool,         // 选择工具
-    createProject,       // 创建项目
-    addLayer,           // 添加图层
-    updateLayer,         // 更新图层
-    deleteLayer,        // 删除图层
-    undo,               // 撤销
-    redo                // 重做
+    projects,           // Project list
+    currentTool,        // Current tool
+    selectTool,         // Select tool
+    createProject,       // Create project
+    addLayer,           // Add layer
+    updateLayer,        // Update layer
+    deleteLayer,        // Delete layer
+    undo,               // Undo
+    redo                // Redo
   } = useStore()
   
-  // 使用状态和方法
+  // Use state and methods
 }
 ```
 
-#### 项目管理
+#### Project Management
 
 ```tsx
-// 创建项目
-createProject('新项目')
+// Create project
+createProject('New Project')
 
-// 获取当前项目
+// Get current project
 const currentProject = projects.find(p => p.id === currentProjectId)
 
-// 获取项目中的图层
+// Get project layers
 const layers = currentProject?.layers || []
 ```
 
-#### 图层操作
+#### Layer Operations
 
 ```tsx
-// 添加图层
+// Add layer
 addLayer(projectId, {
   id: 'layer-1',
   type: 'rectangle',
-  name: '矩形 1',
+  name: 'Rectangle 1',
   transform: { x: 0, y: 0, scaleX: 1, scaleY: 1, rotation: 0, skewX: 0, skewY: 0 },
   style: { fills: [], strokes: [], effects: [] },
   metadata: { width: 100, height: 100 }
 })
 
-// 更新图层
+// Update layer
 updateLayer(projectId, layerId, { 
   transform: { x: 100, y: 100 } 
 })
 
-// 删除图层
+// Delete layer
 deleteLayer(projectId, layerId)
 
-// 选择图层
+// Select layers
 selectLayers(projectId, ['layer-1', 'layer-2'])
 
-// 编组
+// Group
 groupLayers(projectId, ['layer-1', 'layer-2'])
 
-// 取消编组
+// Ungroup
 ungroupLayer(projectId, groupId)
 
-// 复制图层
+// Duplicate layer
 duplicateLayer(projectId, layerId)
 ```
 
 ---
 
-## 类型定义
+## Type Definitions
 
 ### LayerType
 
-支持的图层类型：
+Supported layer types:
 
 ```typescript
 type LayerType = 
-  | 'frame'     // 画板
-  | 'group'     // 编组
-  | 'rectangle' // 矩形
-  | 'ellipse'   // 椭圆
-  | 'polygon'   // 多边形
-  | 'line'      // 直线
-  | 'path'      // 路径
-  | 'text'      // 文本
-  | 'image'     // 图片
-  | 'component' // 组件
-  | 'boolean'   // 布尔运算
+  | 'frame'     // Frame
+  | 'group'     // Group
+  | 'rectangle' // Rectangle
+  | 'ellipse'   // Ellipse
+  | 'polygon'   // Polygon
+  | 'line'      // Line
+  | 'path'      // Path
+  | 'text'      // Text
+  | 'image'     // Image
+  | 'component' // Component
+  | 'boolean'   // Boolean operation
 ```
 
 ### ToolType
 
-支持的工具类型：
+Supported tool types:
 
 ```typescript
 type ToolType = 
-  | 'select'    // 选择
-  | 'rectangle' // 矩形
-  | 'ellipse'   // 椭圆
-  | 'polygon'   // 多边形
-  | 'line'      // 直线
-  | 'pen'       // 钢笔
-  | 'text'      // 文本
-  | 'frame'     // 画板
-  | 'hand'      // 手型
-  | 'zoom'      // 缩放
+  | 'select'    // Select
+  | 'rectangle' // Rectangle
+  | 'ellipse'   // Ellipse
+  | 'polygon'   // Polygon
+  | 'line'      // Line
+  | 'pen'       // Pen
+  | 'text'      // Text
+  | 'frame'     // Frame
+  | 'hand'      // Hand
+  | 'zoom'      // Zoom
 ```
 
 ---
 
-**最后更新**: 2026-05-12
+**Last Updated**: 2026-05-12
