@@ -1,0 +1,99 @@
+{
+  "app": {
+    "name": "CodeBrush",
+    "tagline": "专业在线设计工具"
+  },
+  "toolbar": {
+    "newProject": "新建项目",
+    "selectTool": "选择工具",
+    "rectangleTool": "矩形工具",
+    "ellipseTool": "椭圆工具",
+    "polygonTool": "多边形工具",
+    "lineTool": "线条工具",
+    "penTool": "钢笔工具",
+    "textTool": "文本工具",
+    "frameTool": "画板工具",
+    "handTool": "手型工具",
+    "zoomTool": "缩放工具",
+    "undo": "撤销",
+    "redo": "重做",
+    "export": "导出",
+    "exportPNG": "导出 PNG",
+    "exportSVG": "导出 SVG",
+    "exportJSON": "导出 JSON",
+    "uploadImage": "上传图片"
+  },
+  "layers": {
+    "title": "图层",
+    "empty": "暂无图层",
+    "lock": "锁定",
+    "unlock": "解锁",
+    "visible": "可见",
+    "hidden": "隐藏",
+    "delete": "删除",
+    "duplicate": "复制",
+    "group": "编组",
+    "ungroup": "取消编组"
+  },
+  "properties": {
+    "title": "属性",
+    "position": "位置",
+    "size": "尺寸",
+    "rotation": "旋转",
+    "opacity": "不透明度",
+    "fill": "填充",
+    "stroke": "描边",
+    "effects": "效果",
+    "noSelection": "未选择图层"
+  },
+  "editor": {
+    "welcome": "欢迎使用 CodeBrush",
+    "createProject": "点击左侧 \"+\" 按钮创建新项目",
+    "doubleClickEdit": "双击编辑文本"
+  },
+  "actions": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "rename": "重命名",
+    "copy": "复制",
+    "paste": "粘贴",
+    "cut": "剪切",
+    "selectAll": "全选",
+    "deselect": "取消选择"
+  },
+  "shortcuts": {
+    "title": "快捷键",
+    "undo": "撤销",
+    "redo": "重做",
+    "delete": "删除",
+    "group": "编组",
+    "ungroup": "取消编组",
+    "duplicate": "复制",
+    "selectAll": "全选",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "zoomReset": "重置缩放"
+  },
+  "settings": {
+    "title": "设置",
+    "language": "语言",
+    "theme": "主题",
+    "shortcuts": "快捷键"
+  },
+  "messages": {
+    "projectCreated": "项目创建成功",
+    "exportSuccess": "导出成功",
+    "exportError": "导出失败",
+    "saveSuccess": "保存成功",
+    "saveError": "保存失败",
+    "error": "发生错误"
+  },
+  "dialogs": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "ok": "确定",
+    "yes": "是",
+    "no": "否"
+  }
+}

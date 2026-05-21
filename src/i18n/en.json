@@ -1,0 +1,99 @@
+{
+  "app": {
+    "name": "CodeBrush",
+    "tagline": "Professional Online Design Tool"
+  },
+  "toolbar": {
+    "newProject": "New Project",
+    "selectTool": "Select Tool",
+    "rectangleTool": "Rectangle Tool",
+    "ellipseTool": "Ellipse Tool",
+    "polygonTool": "Polygon Tool",
+    "lineTool": "Line Tool",
+    "penTool": "Pen Tool",
+    "textTool": "Text Tool",
+    "frameTool": "Frame Tool",
+    "handTool": "Hand Tool",
+    "zoomTool": "Zoom Tool",
+    "undo": "Undo",
+    "redo": "Redo",
+    "export": "Export",
+    "exportPNG": "Export PNG",
+    "exportSVG": "Export SVG",
+    "exportJSON": "Export JSON",
+    "uploadImage": "Upload Image"
+  },
+  "layers": {
+    "title": "Layers",
+    "empty": "No layers",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "visible": "Visible",
+    "hidden": "Hidden",
+    "delete": "Delete",
+    "duplicate": "Duplicate",
+    "group": "Group",
+    "ungroup": "Ungroup"
+  },
+  "properties": {
+    "title": "Properties",
+    "position": "Position",
+    "size": "Size",
+    "rotation": "Rotation",
+    "opacity": "Opacity",
+    "fill": "Fill",
+    "stroke": "Stroke",
+    "effects": "Effects",
+    "noSelection": "No layer selected"
+  },
+  "editor": {
+    "welcome": "Welcome to CodeBrush",
+    "createProject": "Click the + button to create a new project",
+    "doubleClickEdit": "Double-click to edit text"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "rename": "Rename",
+    "copy": "Copy",
+    "paste": "Paste",
+    "cut": "Cut",
+    "selectAll": "Select All",
+    "deselect": "Deselect"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "undo": "Undo",
+    "redo": "Redo",
+    "delete": "Delete",
+    "group": "Group",
+    "ungroup": "Ungroup",
+    "duplicate": "Duplicate",
+    "selectAll": "Select All",
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "zoomReset": "Reset Zoom"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "shortcuts": "Shortcuts"
+  },
+  "messages": {
+    "projectCreated": "Project created successfully",
+    "exportSuccess": "Export completed successfully",
+    "exportError": "Export failed",
+    "saveSuccess": "Saved successfully",
+    "saveError": "Save failed",
+    "error": "An error occurred"
+  },
+  "dialogs": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

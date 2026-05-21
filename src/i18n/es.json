@@ -1,0 +1,99 @@
+{
+  "app": {
+    "name": "CodeBrush",
+    "tagline": "Herramienta de Diseño Profesional en Línea"
+  },
+  "toolbar": {
+    "newProject": "Nuevo Proyecto",
+    "selectTool": "Herramienta de Selección",
+    "rectangleTool": "Herramienta de Rectángulo",
+    "ellipseTool": "Herramienta de Elipse",
+    "polygonTool": "Herramienta de Polígono",
+    "lineTool": "Herramienta de Línea",
+    "penTool": "Herramienta de Pluma",
+    "textTool": "Herramienta de Texto",
+    "frameTool": "Herramienta de Marco",
+    "handTool": "Herramienta de Mano",
+    "zoomTool": "Herramienta de Zoom",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "export": "Exportar",
+    "exportPNG": "Exportar PNG",
+    "exportSVG": "Exportar SVG",
+    "exportJSON": "Exportar JSON",
+    "uploadImage": "Subir Imagen"
+  },
+  "layers": {
+    "title": "Capas",
+    "empty": "Sin capas",
+    "lock": "Bloquear",
+    "unlock": "Desbloquear",
+    "visible": "Visible",
+    "hidden": "Oculto",
+    "delete": "Eliminar",
+    "duplicate": "Duplicar",
+    "group": "Agrupar",
+    "ungroup": "Desagrupar"
+  },
+  "properties": {
+    "title": "Propiedades",
+    "position": "Posición",
+    "size": "Tamaño",
+    "rotation": "Rotación",
+    "opacity": "Opacidad",
+    "fill": "Relleno",
+    "stroke": "Trazo",
+    "effects": "Efectos",
+    "noSelection": "Ninguna capa seleccionada"
+  },
+  "editor": {
+    "welcome": "Bienvenido a CodeBrush",
+    "createProject": "Haz clic en el botón + para crear un nuevo proyecto",
+    "doubleClickEdit": "Doble clic para editar texto"
+  },
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "rename": "Renombrar",
+    "copy": "Copiar",
+    "paste": "Pegar",
+    "cut": "Cortar",
+    "selectAll": "Seleccionar Todo",
+    "deselect": "Deseleccionar"
+  },
+  "shortcuts": {
+    "title": "Atajos de Teclado",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "delete": "Eliminar",
+    "group": "Agrupar",
+    "ungroup": "Desagrupar",
+    "duplicate": "Duplicar",
+    "selectAll": "Seleccionar Todo",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "zoomReset": "Restablecer Zoom"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema",
+    "shortcuts": "Atajos"
+  },
+  "messages": {
+    "projectCreated": "Proyecto creado exitosamente",
+    "exportSuccess": "Exportación completada exitosamente",
+    "exportError": "Error en la exportación",
+    "saveSuccess": "Guardado exitosamente",
+    "saveError": "Error al guardar",
+    "error": "Ocurrió un error"
+  },
+  "dialogs": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "ok": "Aceptar",
+    "yes": "Sí",
+    "no": "No"
+  }
+}

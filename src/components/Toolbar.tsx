@@ -5,8 +5,8 @@ import {
   Square, 
   Circle, 
   Triangle, 
-  Minus, 
-  PenTool, 
+  Minus,
+  PenTool,
   Type,
   Hand,
   ZoomIn,
@@ -19,22 +19,31 @@ import {
 import { ToolType } from '../types'
 import ImageUploader from './ImageUploader'
 import { downloadAsPNG, downloadAsSVG, downloadAsJSON } from '../utils/export'
+import { useI18n } from '../i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 
-const tools: { type: ToolType; icon: typeof MousePointer2; label: string }[] = [
-  { type: 'select', icon: MousePointer2, label: '选择工具' },
-  { type: 'rectangle', icon: Square, label: '矩形工具' },
-  { type: 'ellipse', icon: Circle, label: '椭圆工具' },
-  { type: 'polygon', icon: Triangle, label: '多边形工具' },
-  { type: 'line', icon: Minus, label: '线条工具' },
-  { type: 'pen', icon: PenTool, label: '钢笔工具' },
-  { type: 'text', icon: Type, label: '文本工具' },
-  { type: 'frame', icon: LayoutGrid, label: '画板工具' },
-  { type: 'hand', icon: Hand, label: '手型工具' },
-  { type: 'zoom', icon: ZoomIn, label: '缩放工具' },
+interface ToolConfig {
+  type: ToolType
+  icon: typeof MousePointer2
+  labelKey: string
+}
+
+const tools: ToolConfig[] = [
+  { type: 'select', icon: MousePointer2, labelKey: 'toolbar.selectTool' },
+  { type: 'rectangle', icon: Square, labelKey: 'toolbar.rectangleTool' },
+  { type: 'ellipse', icon: Circle, labelKey: 'toolbar.ellipseTool' },
+  { type: 'polygon', icon: Triangle, labelKey: 'toolbar.polygonTool' },
+  { type: 'line', icon: Minus, labelKey: 'toolbar.lineTool' },
+  { type: 'pen', icon: PenTool, labelKey: 'toolbar.penTool' },
+  { type: 'text', icon: Type, labelKey: 'toolbar.textTool' },
+  { type: 'frame', icon: LayoutGrid, labelKey: 'toolbar.frameTool' },
+  { type: 'hand', icon: Hand, labelKey: 'toolbar.handTool' },
+  { type: 'zoom', icon: ZoomIn, labelKey: 'toolbar.zoomTool' },
 ]
 
 function Toolbar() {
   const { currentTool, selectTool, undo, redo, createProject, projects, currentProjectId } = useStore()
+  const { t } = useI18n()
   const [showExportMenu, setShowExportMenu] = useState(false)
 
   const handleToolClick = (tool: ToolType) => {
@@ -73,15 +82,15 @@ function Toolbar() {
   return (
     <div className="w-16 bg-gray-900 flex flex-col items-center py-4 gap-2">
       <button
-        onClick={() => createProject('未命名项目')}
-        className="w-10 h-10 rounded-lg bg-blue-600 hover:bg-blue-700 flex items-center justify-center text-white mb-4"
-        title="新建项目"
+        onClick={() => createProject('Untitled Project')}
+        className="w-10 h-10 rounded-lg bg-blue-600 hover:bg-blue-700 flex items-center justify-center text-white mb-4 transition-colors"
+        title={t('toolbar.newProject')}
       >
         <Plus size={20} />
       </button>
 
       <div className="border-t border-gray-700 w-full px-2 py-2">
-        {tools.map(({ type, icon: Icon, label }) => (
+        {tools.map(({ type, icon: Icon, labelKey }) => (
           <button
             key={type}
             onClick={() => handleToolClick(type)}
@@ -90,7 +99,7 @@ function Toolbar() {
                 ? 'bg-blue-600 text-white'
                 : 'text-gray-400 hover:text-white hover:bg-gray-800'
             }`}
-            title={label}
+            title={t(labelKey)}
           >
             <Icon size={20} />
           </button>
@@ -101,48 +110,51 @@ function Toolbar() {
       <div className="border-t border-gray-700 w-full px-2 py-2 mt-auto">
         <button
           onClick={undo}
-          className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center mb-1"
-          title="撤销"
+          className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center mb-1 transition-colors"
+          title={t('toolbar.undo')}
         >
           <Undo2 size={20} />
         </button>
         <button
           onClick={redo}
-          className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center mb-1"
-          title="重做"
+          className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center mb-1 transition-colors"
+          title={t('toolbar.redo')}
         >
           <Redo2 size={20} />
         </button>
         <div className="relative">
           <button
             onClick={() => setShowExportMenu(!showExportMenu)}
-            className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center"
-            title="导出"
+            className="w-10 h-10 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center transition-colors"
+            title={t('toolbar.export')}
           >
             <Download size={20} />
           </button>
           {showExportMenu && (
-            <div className="absolute right-0 top-full mt-1 bg-gray-800 rounded-lg shadow-lg py-1 min-w-[120px] z-50">
+            <div className="absolute right-0 top-full mt-1 bg-gray-800 rounded-lg shadow-lg py-1 min-w-[140px] z-50 border border-gray-700">
               <button
                 onClick={handleExportPNG}
-                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
               >
-                导出 PNG
+                {t('toolbar.exportPNG')}
               </button>
               <button
                 onClick={handleExportSVG}
-                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
               >
-                导出 SVG
+                {t('toolbar.exportSVG')}
               </button>
               <button
                 onClick={handleExportJSON}
-                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
               >
-                导出 JSON
+                {t('toolbar.exportJSON')}
               </button>
             </div>
           )}
+        </div>
+        <div className="mt-2 pt-2 border-t border-gray-700">
+          <LanguageSwitcher />
         </div>
       </div>
     </div>
